@@ -1,0 +1,3 @@
+Read not done yet...
+
+IDEA: A cli loganalyser made in java
