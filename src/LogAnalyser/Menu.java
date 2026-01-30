@@ -34,7 +34,10 @@ public class Menu {
                     this.fileName = Reader.picker(paths).toString();
                 }
 
-                case 2 -> System.out.println("Reading...");
+                case 2 ->{
+                    System.out.println("Reading...");
+                    Reader.Analyser(Path.of(this.fileName));
+                }
                 case 3 ->{
                     System.out.println("Exiting...");
                     flag = false;
@@ -42,6 +45,4 @@ public class Menu {
             }
         }
     }
-
-
 }
