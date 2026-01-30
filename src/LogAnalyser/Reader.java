@@ -1,7 +1,8 @@
 package LogAnalyser;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -44,21 +45,39 @@ public class Reader {
 
     public void Analyser (Path pathToFile){
         try(Stream<String> lineStream = Files.lines(pathToFile)){
-            Set<String> cleanLines = lineStream
+            List<String> cleanLines = lineStream
                     .filter(linha -> linha.startsWith("http") || linha.startsWith("ftp"))
-                    .collect(Collectors.toSet());
+                    .toList();
                 for(int i = 0; i < cleanLines.size(); i++){
-                    if(cleanLines.get(i) )
-                    System.out.println(line);
-
+                    System.out.println(cleanLines.get(i));
                 }
-
+                Statistics(cleanLines);
         }catch(IOException e){
             throw new RuntimeException("ERROR: FAILED TO READ FILE");
         }
 
     }
 
+    public void Statistics (List<String> urls){
+        Map<String, Long> statsTable = urls.stream()
+                .map(url -> {
+                    try{
+                        String host = new URI(url).getHost();
+                        return host;
+                    }catch (URISyntaxException e){
+                        return null;
+                    }
+                })
+                .filter(domain -> domain != null && !domain.isEmpty())
+                .collect(Collectors.groupingBy(
+                        domain -> domain,
+                        Collectors.counting()
+                ));
+        statsTable.forEach((domain, occurrences) -> {
+            System.out.println("Domain: "+ domain + "| Occurrences: "+ occurrences);
+        });
+
+    }
 }
 
 
