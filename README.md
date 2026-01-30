@@ -19,4 +19,4 @@ Este projeto foi criado como parte de um estudo aprofundado sobre **Java Core**,
 * **Java Collections Framework:** Para armazenamento e manipulação de dados únicos.
 
 ## 📋 POR FAZER:
-* Adicionar função que discerne quantas vezes cada domínio realizou chamadas, quantas chamadas resultaram em erros e etc...
+* FRONTEND
